@@ -24,43 +24,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Bigtuna.io 
-#define PRODUCT         Miuni32
-#define DESCRIPTION     A custom keyboard for writers
+#define MANUFACTURER    Bathroom Epiphanies
+#define PRODUCT         tiger_lily
+#define DESCRIPTION     Tiger Lily controller for the Filco Majestouch 2
+
+/*
+ * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies
+ * Ported from the Bathroom Epiphanies TMK Firmware:
+ * https://github.com/BathroomEpiphanies/epiphanies_tmk_keyboard/tree/master/be_controllers
+ *
+ */
 
 /* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 11
+#define MATRIX_ROWS 8   // Row0 - Row7 in the schematic
+#define MATRIX_COLS 18  // ColA - ColR in the schematic
 
 /*
  * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { F0, F4, D7}
-#define MATRIX_COL_PINS { C6, C7, F7, F6, F1, E6, B7, B3, B2, B1, B0}
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
- 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
+ */
+#define UNUSED_PINS { B0, C4, D3 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -158,14 +143,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#define RGBLIGHT_TIMER 
-#define RGB_DI_PIN D0     // The pin your RGB strip is wired to
-#define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
-#define RGBLED_NUM 7     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
 
 #endif
