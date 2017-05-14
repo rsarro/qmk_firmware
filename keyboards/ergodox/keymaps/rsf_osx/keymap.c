@@ -1,4 +1,5 @@
 #include "ergodox.h"
+#include "led.h"
 #include "debug.h"
 #include "action_layer.h"
 
@@ -123,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
-    // right handlç-wwawww
+    // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
-       KC_TRNS,  KC_TRNS, KC_MPLAYU, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
                           KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -161,24 +162,26 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
+    // shift or caps lock turns on red light
+    if((keyboard_report->mods & MOD_BIT(KC_LSFT))
+       || (keyboard_report->mods & MOD_BIT(KC_RSFT))
+       || (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
+        ergodox_right_led_1_on();
+    } else {
+        ergodox_right_led_1_off();
     }
 
+    // Symbol layer turns on green light
+    if(layer_state & (1UL<<SYMB)) {
+        ergodox_right_led_2_on();
+    } else {
+        ergodox_right_led_2_off();
+    }
+
+    // Media layer turns on blue light
+    if(layer_state & (1UL<<MDIA)) {
+        ergodox_right_led_3_on();
+    } else {
+        ergodox_right_led_3_off();
+    }
 };
