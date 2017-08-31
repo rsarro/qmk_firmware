@@ -1,5 +1,4 @@
-
-#include "ergodox.h"
+#include QMK_KEYBOARD_H
 #include "led.h"
 #include "debug.h"
 #include "action_layer.h"
