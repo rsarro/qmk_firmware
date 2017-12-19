@@ -1,8 +1,7 @@
 #include QMK_KEYBOARD_H
-#include "led.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "action_util.h"
+#include "version.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -162,6 +161,7 @@ void matrix_init_user(void) {
 };
 
 // Runs constantly in the background, in a loop.
+/*
 void matrix_scan_user(void) {
     // shift or caps lock turns on red light
     if((keyboard_report->mods & MOD_BIT(KC_LSFT))
@@ -186,3 +186,27 @@ void matrix_scan_user(void) {
         ergodox_right_led_3_off();
     }
 };
+ */
+void matrix_scan_user(void) {
+
+    uint8_t layer = biton32(layer_state);
+
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    switch (layer) {
+        // TODO: Make this relevant to the ErgoDox EZ.
+        case SYMB:
+            ergodox_right_led_1_on();
+            break;
+        case MDIA:
+            ergodox_right_led_2_on();
+            break;
+        default:
+            // none
+            break;
+    }
+
+};
+
